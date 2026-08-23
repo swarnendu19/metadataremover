@@ -1,0 +1,1 @@
+[contextkit tutor] This is a good candidate for Codex subagents. Separate helpers can inspect focused parts of the project in parallel and report back, while the main task keeps the decisions together. Say "use subagents to audit this" when a sweep would otherwise flood one context.

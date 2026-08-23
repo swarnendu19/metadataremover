@@ -1,0 +1,1 @@
+[contextkit tutor] You have hit a few rough turns. In Codex, pause and make a checkpoint: inspect `git diff`, name what changed, and keep the next experiment small. A clean checkpoint makes it easy to steer or undo one bad direction without losing the good work.

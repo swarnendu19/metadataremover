@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "project": "MetadataRemoverTool.com",
+  "steps": [
+    { "id": 1, "title": "Astro and Tailwind foundation", "status": "done" },
+    { "id": 2, "title": "Local file analysis and privacy report", "status": "done" },
+    { "id": 3, "title": "Selective PDF controls and photographer presets", "status": "done" },
+    { "id": 4, "title": "Reliable batches and collision-safe downloads", "status": "done" },
+    { "id": 5, "title": "Cross-browser automated verification", "status": "done" },
+    { "id": 6, "title": "Homepage on-page SEO and social sharing", "status": "in-progress" },
+    { "id": 7, "title": "Release documentation and final review", "status": "todo" }
+  ],
+  "decisions": [
+    "JPG, PNG, WebP, and PDF support in V1",
+    "One remover homepage only",
+    "Files are processed locally in the browser",
+    "Batch cleanup and ZIP download are part of V1",
+    "No ads in the initial release",
+    "Dark theme is the default with a persisted light-theme toggle",
+    "Technical file properties are shown separately from privacy metadata",
+    "Heavy metadata libraries load only when users need them",
+    "Custom PDF cleanup exposes every detected identity field selected by default",
+    "Photographer Mode removes location, identity, serial numbers, and exact dates while retaining safe camera settings where supported",
+    "Unsafe selective image preservation falls back to full metadata removal",
+    "Release verification covers Chromium, Firefox, WebKit, and mobile viewports",
+    "The primary SEO keyword is the correctly spelled metadata remover; misspelled variants are excluded",
+    "The homepage uses the H1 Free Metadata Remover for Photos, Images and PDFs",
+    "Homepage copy totals approximately 800-1200 words while the remover stays first",
+    "Canonical production URL is https://metadataremovertool.com/",
+    "Homepage SEO includes Open Graph, Twitter Card, WebApplication, and visible FAQ metadata",
+    "Expanded FAQ answers stay concise and use the same source data as JSON-LD",
+    "Word-document FAQ entries transparently state that Word cleanup is unsupported in V1 and provide only general official guidance",
+    "Release changes remain uncommitted for user review"
+  ],
+  "lastSession": {
+    "date": "2026-08-21",
+    "note": "Approved an expanded concise FAQ for metadata questions, including transparent Word-document guidance while keeping Word cleanup out of V1."
+  }
+}

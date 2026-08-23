@@ -1,0 +1,135 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"session-start.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ],
+        "matcher": "startup|resume|clear|compact"
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"tutor.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ],
+        "matcher": "startup|resume|clear|compact"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"clarity.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"tutor.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"tutor.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ],
+        "matcher": "manual|auto"
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"subagent-rules.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"safety-guard.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"clarity.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ],
+        "matcher": "apply_patch|Edit|Write"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"slop-check.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ],
+        "matcher": "apply_patch|Edit|Write"
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"cards.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ],
+        "matcher": "apply_patch|Edit|Write"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.codex/contextkit/hooks/codex-hook.mjs\" \"stop-reminder.mjs\"",
+            "timeout": 15,
+            "statusMessage": "contextkit"
+          }
+        ]
+      }
+    ]
+  }
+}

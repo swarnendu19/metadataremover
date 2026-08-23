@@ -1,0 +1,23 @@
+{
+  "version": "0.5.6",
+  "skills": [
+    "start",
+    "tour",
+    "step",
+    "check",
+    "fix",
+    "review",
+    "lean",
+    "ship",
+    "recover",
+    "secrets",
+    "explain",
+    "design-intake",
+    "design-check",
+    "polish",
+    "connect-mcp",
+    "claude-tips",
+    "codex-tips"
+  ],
+  "installedAt": "2026-08-18"
+}

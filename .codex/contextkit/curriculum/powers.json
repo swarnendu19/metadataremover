@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "title": "Core moves",
+      "powers": [
+        { "id": "plan-mode", "name": "Plan Mode", "what": "it thinks and shows a plan BEFORE touching files - Shift+Tab to cycle into it", "lesson": true },
+        { "id": "thinking", "name": "Think harder", "what": "Alt+T toggles extended thinking for tough problems", "lesson": true },
+        { "id": "checkpoints", "name": "Rewind", "what": "with an empty input, Esc twice (or /rewind) rolls the code back to before a bad attempt", "lesson": true },
+        { "id": "interrupt", "name": "Interrupt & steer", "what": "press Esc mid-run to stop a bad direction - don't wait for it to finish" },
+        { "id": "context-hygiene", "name": "Fresh head", "what": "/clear between unrelated tasks keeps the agent sharp", "lesson": true }
+      ]
+    },
+    {
+      "title": "Show, don't describe",
+      "powers": [
+        { "id": "screenshots", "name": "Paste screenshots", "what": "Ctrl+V pastes an image - it can SEE the layout bug you're describing", "lesson": true },
+        { "id": "file-mentions", "name": "@file mentions", "what": "type @ and the filename to point at the exact file instead of describing it" },
+        { "id": "memory", "name": "Permanent notes", "what": "say 'remember: prices are in kroner' and it sticks for every future session - /memory shows what's saved" }
+      ]
+    },
+    {
+      "title": "Flow",
+      "powers": [
+        { "id": "queue", "name": "Queued messages", "what": "keep typing while it works - your messages line up and run in order" },
+        { "id": "resume-memory", "name": "Pick up where you left off", "what": "/resume reopens an old session; contextkit's roadmap re-briefs it every time", "lesson": true },
+        { "id": "bash-bang", "name": "Run commands yourself", "what": "start a message with ! to run a terminal command and share its output" },
+        { "id": "permissions", "name": "Permission modes", "what": "Shift+Tab cycles ask-first / auto-accept edits / plan mode" }
+      ]
+    },
+    {
+      "title": "Plugged in",
+      "powers": [
+        { "id": "connect-mcp", "name": "Connect your tools", "what": "MCP plugs in Stripe, your database, email, the web - /connect-mcp sets it up", "lesson": true },
+        { "id": "web", "name": "Web search", "what": "ask it to search or read a URL - it can fetch current docs and prices" },
+        { "id": "subagents", "name": "Subagents", "what": "for big searches or audits it can send out parallel helpers - just ask", "lesson": true }
+      ]
+    },
+    {
+      "title": "Pro corner",
+      "powers": [
+        { "id": "model-switch", "name": "Model switching", "what": "/model - a heavier model for hard problems, a fast one for simple edits" },
+        { "id": "output-styles", "name": "Voices", "what": "/config -> Output style: contextkit ships a teaching voice and a buddy voice" },
+        { "id": "headless", "name": "Automation", "what": "claude -p runs it inside scripts - how contextkit benchmarks itself" },
+        { "id": "hooks", "name": "Hooks", "what": "real scripts that fire on events (session start, before a tool runs, at the end) - contextkit's own greeting and ask-first lock are hooks", "lesson": true },
+        { "id": "build-your-own-skill", "name": "Save it as a skill", "what": "any ritual you repeat can live at .claude/skills/<name>/SKILL.md - then /<name> runs it and Claude auto-uses it when it fits", "lesson": true }
+      ]
+    }
+  ]
+}

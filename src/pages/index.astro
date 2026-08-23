@@ -1,11 +1,205 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const canonical = 'https://metadataremovertool.com/';
+const title = 'Free Metadata Remover for Photos, Images & PDFs';
+const description = 'Remove metadata from photos, images, and PDFs free in your browser. Inspect EXIF, GPS, camera, and author data, then clean and verify files locally.';
+const socialImage = `${canonical}metadata-remover-social.png`;
+
+const faqs = [
+  {
+    question: 'What is a metadata remover?',
+    answer: 'A metadata remover finds hidden file details—GPS, creator, camera, dates, or PDF properties—and creates a cleaner copy for sharing.',
+  },
+  {
+    question: 'What does a metadata remover do?',
+    answer: 'It scans supported details, lets you choose cleanup, and verifies a new file without overwriting the original.',
+  },
+  {
+    question: 'What is metadata used for?',
+    answer: 'Metadata helps apps organize and display files, but it can also reveal technical, author, location, or time details.',
+  },
+  {
+    question: 'Is there a way to remove metadata?',
+    answer: 'Yes. Review detected fields, choose a cleanup, and verify the exported copy before sharing.',
+  },
+  {
+    question: 'How do I remove metadata from a picture?',
+    answer: 'Drop a JPG, PNG, or WebP here, select a cleanup, then download the verified copy. Your original remains unchanged.',
+  },
+  {
+    question: 'How do I remove metadata from photos, photo metadata, and images?',
+    answer: 'Choose supported images, review GPS, identity, device, date, camera, and editing details, then select an available cleanup mode.',
+  },
+  {
+    question: 'How do I remove metadata from a PDF or remove PDF metadata?',
+    answer: 'Add a PDF, choose detected author, title, creator, producer, subject, and date fields to remove, then download the rescanned copy.',
+  },
+  {
+    question: 'How do I remove metadata from a Word document, Word doc, or Word file?',
+    answer: 'This tool does not support .doc or .docx. In desktop Word, inspect a copy via File, Info, Check for Issues, and Inspect Document, then review results and choose Remove All.',
+    sourceUrl: 'https://support.microsoft.com/en-us/office/collab-files/remove-hidden-data-and-personal-information-by-inspecting-documents-presentations-or-workbooks',
+    sourceLabel: 'Read Microsoft’s Document Inspector guidance',
+  },
+  {
+    question: 'How do I remove metadata from Android?',
+    answer: 'On Android, open this page, choose a supported photo, review metadata, select cleanup, and download the cleaned copy.',
+  },
+  {
+    question: 'What app removes metadata from JPEGs on Mac?',
+    answer: 'No app is needed for supported JPEGs. This browser tool works on macOS and processes files locally.',
+  },
+  {
+    question: 'What does an EXIF metadata remover delete?',
+    answer: 'It can remove supported GPS, dates, camera details, serial numbers, and creator data; Photographer Mode can preserve safe exposure data.',
+  },
+  {
+    question: 'Can it remove metadata from AI-generated images?',
+    answer: 'It cleans supported JPG, PNG, and WebP files from camera, design, or AI tools, but does not identify AI origin.',
+  },
+  {
+    question: 'Is this a free online metadata remover app?',
+    answer: 'Yes. It is free, needs no account, and processes supported files locally rather than uploading them.',
+  },
+  {
+    question: 'What makes the best metadata removal tool?',
+    answer: 'Look for clear detection, explanations, selective cleanup, batch reliability, and verification—plus honest limits for unsupported formats.',
+  },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      '@id': `${canonical}#application`,
+      name: 'Metadata Remover',
+      url: canonical,
+      description,
+      image: socialImage,
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Any operating system with a modern web browser',
+      browserRequirements: 'Requires JavaScript and a modern browser',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      featureList: [
+        'Remove metadata from JPG, PNG, WebP, and PDF files',
+        'Local browser-only file processing',
+        'Selective PDF metadata cleanup',
+        'Photographer Mode for supported camera metadata',
+        'Batch cleanup with ZIP download',
+        'Post-cleanup metadata verification',
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: faqs.map(({ question, answer }) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: answer,
+        },
+      })),
+    },
+  ],
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout {title} {description} {canonical} image={socialImage} imageAlt="Metadata Remover for photos, images, and PDFs with private cleanup and no uploads" {structuredData}>
+  <PageHeader home />
+  <main>
+    <section class="page-shell grid gap-12 py-16 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:py-24">
+      <div>
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full bg-surface-card px-3 py-1.5 text-xs font-bold text-body"><span class="size-2 rounded-full bg-success"></span> Private by design</div>
+        <h1 class="max-w-[650px] font-display text-4xl font-extrabold leading-[1.06] tracking-[-0.06em] text-ink sm:text-5xl xl:text-6xl">Free Metadata Remover for Photos, Images and PDFs</h1>
+        <p class="mt-6 max-w-xl text-lg leading-8 text-body">Inspect and remove hidden GPS, EXIF, camera, author, device, and document details before you share. Everything runs locally in your browser.</p>
+        <div class="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold text-body"><span><span class="text-success">✓</span> No server uploads</span><span><span class="text-success">✓</span> No account required</span><span><span class="text-success">✓</span> Verify after cleaning</span></div>
+      </div>
+      <div id="remover" class="rounded-2xl border border-hairline bg-white p-3 shadow-[0_18px_50px_rgba(17,17,17,0.08)] sm:p-5">
+        <div id="upload-panel" class="dotted-surface rounded-xl border border-dashed border-[#bfc5cc] px-5 py-10 text-center sm:px-10 sm:py-14">
+          <div class="upload-mark mx-auto grid size-12 place-items-center rounded-xl shadow-lg"><svg viewBox="0 0 24 24" class="size-6 fill-none stroke-current" stroke-width="1.8"><path d="M12 16V4m0 0L7.5 8.5M12 4l4 4.5M5 19h14" /></svg></div>
+          <h2 class="mt-5 font-display text-2xl font-extrabold tracking-[-0.04em]">Drop files to start a privacy scan</h2>
+          <p class="mx-auto mt-2 max-w-sm text-sm leading-6 text-muted">Choose one or several files. You can also paste an image from your clipboard.</p>
+          <input id="file-input" class="sr-only" type="file" aria-label="Choose JPG, PNG, WebP, or PDF files to scan" accept="image/jpeg,image/png,image/webp,application/pdf" multiple />
+          <button id="choose-files" type="button" class="mt-6 rounded-lg bg-ink px-5 py-3 text-sm font-bold text-white">Choose files</button>
+          <p class="mt-5 font-mono text-xs text-muted">JPG · PNG · WebP · PDF</p>
+        </div>
+        <div class="mt-4 flex items-start gap-3 rounded-xl bg-surface-card p-4 text-left"><svg viewBox="0 0 24 24" class="mt-0.5 size-5 shrink-0 fill-none stroke-success" stroke-width="2"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg><p class="text-sm leading-6 text-body"><strong class="text-ink">Your files stay on your device.</strong> Analysis, cleanup, and verification happen in this browser. Nothing is uploaded or stored.</p></div>
+				<div id="analysis-results" class="mt-5 hidden" aria-live="polite"></div>
+      </div>
+    </section>
+    <section id="how-it-works" class="border-y border-hairline bg-surface-soft py-16 sm:py-24"><div class="page-shell"><p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">A privacy check, not a blind cleanup</p><h2 class="mt-4 max-w-2xl font-display text-3xl font-extrabold tracking-[-0.05em] sm:text-4xl">See the exposure before you remove it.</h2><div class="mt-10 grid gap-4 md:grid-cols-4">{['Detect', 'Explain', 'Select', 'Verify'].map((step, index) => <article class="rounded-xl bg-white p-6" aria-label={`${step}, step ${index + 1}`}><span class="font-mono text-xs text-muted">0{index + 1}</span><h3 class="mt-8 font-display text-xl font-extrabold tracking-[-0.035em]">{step}</h3><p class="mt-2 text-sm leading-6 text-body">{['Find every field we can safely inspect.', 'Translate technical fields into privacy impact.', 'Choose a preset or tune exactly what to remove.', 'Rescan the cleaned file and show what changed.'][index]}</p></article>)}</div></div></section>
+    <section id="privacy" class="page-shell grid gap-10 py-16 sm:py-24 lg:grid-cols-[0.86fr_1.14fr] lg:items-center"><div><p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">Clear signals, plain language</p><h2 class="mt-4 font-display text-3xl font-extrabold tracking-[-0.05em] sm:text-4xl">Your privacy report answers one question: what can this file reveal?</h2><p class="mt-5 text-base leading-7 text-body">Location, devices, identity, time, and editing history are scored from the metadata actually present. You will see why each item matters before choosing a cleanup.</p></div><div class="rounded-2xl border border-hairline bg-white p-5 shadow-[0_12px_35px_rgba(17,17,17,0.05)] sm:p-7"><div class="flex items-start justify-between gap-4 border-b border-hairline pb-5"><div><p class="font-mono text-xs text-muted">PRIVACY RISK</p><p class="mt-1 font-display text-2xl font-extrabold tracking-[-0.04em]">High <span class="text-danger">82 / 100</span></p></div><span class="rounded-full bg-[#fef2f2] px-3 py-1.5 text-xs font-bold text-danger">Action recommended</span></div><div class="divide-y divide-hairline">{[['GPS coordinates', 'May reveal where this photo was taken', 'High'], ['Device model', 'Can identify the phone or camera used', 'Medium'], ['Capture date', 'Shows exactly when the file was created', 'Medium']].map(([field, detail, risk]) => <div class="flex items-center justify-between gap-4 py-4"><div><p class="text-sm font-bold text-ink">{field}</p><p class="mt-1 text-xs text-muted">{detail}</p></div><span class:list={['rounded-full px-2.5 py-1 text-xs font-bold', risk === 'High' ? 'bg-[#fef2f2] text-danger' : 'bg-[#fff7ed] text-warning']}>{risk}</span></div>)}</div></div></section>
+    <section id="formats" class="page-shell pb-16 sm:pb-24"><div class="formats-panel rounded-2xl border border-hairline px-6 py-10 sm:px-10 sm:py-12"><p class="formats-kicker font-mono text-xs uppercase tracking-[0.14em]">Supported in V1</p><div class="mt-6 grid gap-7 md:grid-cols-[1fr_auto]"><div><h2 class="font-display text-3xl font-extrabold tracking-[-0.05em]">Images and PDFs, processed entirely here.</h2><p class="formats-copy mt-4 max-w-xl leading-7">We only show a file format as supported when we can handle its metadata locally and keep you informed about the cleanup path.</p></div><div class="grid grid-cols-2 gap-3 self-end font-mono text-sm"><span class="format-chip rounded-lg px-4 py-3">JPG</span><span class="format-chip rounded-lg px-4 py-3">PNG</span><span class="format-chip rounded-lg px-4 py-3">WebP</span><span class="format-chip rounded-lg px-4 py-3">PDF</span></div></div></div></section>
+    <section aria-labelledby="about-heading" class="border-y border-hairline bg-surface-soft py-12 sm:py-24">
+      <div class="page-shell grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+        <div>
+          <p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">Understand before you clean</p>
+          <h2 id="about-heading" class="mt-4 font-display text-3xl font-extrabold tracking-[-0.05em] sm:text-4xl">What does a metadata remover do?</h2>
+        </div>
+        <div class="seo-prose space-y-5 text-base leading-8 text-body">
+          <p>Metadata is information stored alongside a file. A photo may carry GPS coordinates, the date and time it was taken, the camera model, lens settings, a device serial number, or the name of the person who edited it. A PDF may include its author, title, subject, creator application, producer, keywords, and document dates. Those details can be useful while you work, but they may disclose more than you intend when the file is published, emailed, or shared.</p>
+          <p>This metadata removal tool scans supported fields first and turns them into a readable privacy report. You can see what is present, why it may matter, and which cleanup path is available before changing anything. After cleanup, the tool analyzes the new file again and reports what was removed or retained. Your original file is never overwritten.</p>
+          <p>Unlike an upload-based service, this free metadata remover performs analysis, cleanup, and verification inside your browser. That local approach is useful for personal photos, client images, portfolios, forms, reports, and other files that should not be sent to another server simply to remove metadata.</p>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="guides-heading" class="page-shell py-12 sm:py-24">
+      <div class="max-w-3xl">
+        <p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">Practical cleanup guides</p>
+        <h2 id="guides-heading" class="mt-4 font-display text-3xl font-extrabold tracking-[-0.05em] sm:text-4xl">How to remove metadata from photos, images, and PDFs</h2>
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2">
+        <article class="rounded-2xl border border-hairline bg-white p-6 sm:p-8">
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-muted">JPG · PNG · WebP</p>
+          <h3 class="mt-4 font-display text-2xl font-extrabold tracking-[-0.04em]">Remove metadata from a photo or image</h3>
+          <ol class="guide-steps mt-6 space-y-4 text-body">
+            <li><span aria-hidden="true">01</span><div><h4>Choose and review</h4><p>To remove image metadata, choose one or more supported files and inspect the scan. The image metadata remover identifies supported location, identity, device, capture-time, camera, and editing fields before it changes anything.</p></div></li>
+            <li><span aria-hidden="true">02</span><div><h4>Pick the cleanup you need</h4><p>Privacy Clean focuses on sensitive details. Remove Everything strips supported metadata for the simplest share-ready copy. The report explains the available path, so you can choose a preset with context instead of guessing.</p></div></li>
+            <li><span aria-hidden="true">03</span><div><h4>Keep useful camera detail when possible</h4><p>Photographer Mode can retain supported exposure settings such as aperture, shutter speed, ISO, and focal length while removing GPS, identity, serial numbers, and exact dates. If selective preservation is unsafe for a format, the tool clearly falls back to full removal.</p></div></li>
+          </ol>
+        </article>
+        <article class="rounded-2xl border border-hairline bg-white p-6 sm:p-8">
+          <p class="font-mono text-xs uppercase tracking-[0.12em] text-muted">PDF documents</p>
+          <h3 class="mt-4 font-display text-2xl font-extrabold tracking-[-0.04em]">Remove metadata from a PDF</h3>
+          <ol class="guide-steps mt-6 space-y-4 text-body">
+            <li><span aria-hidden="true">01</span><div><h4>Inspect document fields first</h4><p>A PDF metadata remover should show document fields before deleting them. Add a PDF to view detected title, author, subject, creator, producer, keywords, creation date, and modification date information.</p></div></li>
+            <li><span aria-hidden="true">02</span><div><h4>Choose identity fields deliberately</h4><p>Custom cleanup selects detected identity fields by default, while still letting you review every choice before producing a cleaned copy. That makes it practical to remove metadata from PDF files without hiding what will change.</p></div></li>
+            <li><span aria-hidden="true">03</span><div><h4>Download a verified copy</h4><p>The visible pages and document content are not rewritten merely to change the metadata report. After cleanup, the browser rescans the output and shows the before-and-after result for applications, forms, invoices, reports, and public downloads.</p></div></li>
+          </ol>
+        </article>
+      </div>
+      <div class="mt-5 rounded-2xl bg-ink px-6 py-8 text-white sm:px-8">
+        <h3 class="font-display text-2xl font-extrabold tracking-[-0.04em]">An online metadata remover that keeps processing local</h3>
+        <p class="mt-4 max-w-4xl leading-7 text-[#d1d5db]">The tool opens online, but your files stay on your device. There is no account, no file-data analytics, and no server cleanup queue. Additive batches let you choose more files without discarding earlier selections, individual failures do not erase successful results, duplicate filenames receive collision-safe names, and multi-file outputs can be downloaded together as a ZIP. That combination makes the browser page work like a practical metadata remover app without requiring an installation.</p>
+      </div>
+    </section>
+    <section id="faq" aria-labelledby="faq-heading" class="border-t border-hairline bg-surface-soft py-12 sm:py-24">
+      <div class="page-shell grid gap-10 lg:grid-cols-[0.72fr_1.28fr]">
+        <div>
+          <p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">Common questions</p>
+          <h2 id="faq-heading" class="mt-4 font-display text-3xl font-extrabold tracking-[-0.05em] sm:text-4xl">Metadata removal FAQ</h2>
+          <p class="mt-5 max-w-sm leading-7 text-body">Straight answers about removing EXIF, image, photo, and PDF metadata in your browser.</p>
+        </div>
+        <div class="faq-list space-y-3">
+          {faqs.map(({ question, answer, sourceUrl, sourceLabel }, index) => (
+            <details class="rounded-xl border border-hairline bg-white" open={index === 0}>
+              <summary class="flex min-h-14 cursor-pointer items-center gap-4 px-5 py-4 font-display text-base font-extrabold tracking-[-0.025em] text-ink">{question}</summary>
+              <div class="border-t border-hairline px-5 py-4 text-sm leading-7 text-body"><p>{answer}</p>{sourceUrl && <a class="mt-3 inline-flex font-semibold text-ink underline decoration-current underline-offset-4" href={sourceUrl} target="_blank" rel="noreferrer">{sourceLabel}</a>}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+	<SiteFooter />
+	<script src="../scripts/theme.js"></script>
+	<script src="../scripts/remover.js"></script>
 </Layout>

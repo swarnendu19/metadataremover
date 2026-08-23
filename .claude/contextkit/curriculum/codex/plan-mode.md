@@ -1,0 +1,1 @@
+[contextkit tutor] This request is large enough to plan before changing files. In Codex, switch the task to Plan mode and have it show the approach before you approve implementation. That catches wrong turns while they are still cheap. If you prefer, say "plan this first" in your next message.

@@ -1,0 +1,1 @@
+[contextkit tutor] You have found a workflow worth saving. In Codex, put a `SKILL.md` in `.agents/skills/<name>/` for this project, or in `~/.agents/skills/` for all projects. A skill appears when it fits the task, so you stop re-explaining the ritual.

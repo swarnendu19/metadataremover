@@ -1,0 +1,1 @@
+[contextkit tutor] If this needs current docs or a connected system, give Codex a real tool instead of asking it to guess. MCP connects services such as documentation, browsers, and issue trackers. Add only the one that solves the current job, then verify it with a real call.

@@ -1,0 +1,125 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/session-start.mjs\""
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/tutor.mjs\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/clarity.mjs\""
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/tutor.mjs\""
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/tutor.mjs\""
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/subagent-rules.mjs\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/safety-guard.mjs\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/clarity.mjs\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/slop-check.mjs\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/cards.mjs\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/stop-reminder.mjs\""
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/hooks/recap.mjs\""
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "\"C:/Program Files/nodejs/node.exe\" \"C:/Users/swarnendu maity/Documents/Indei Hacker/metadata remover/.claude/contextkit/bin/statusline.mjs\"",
+    "padding": 0
+  }
+}

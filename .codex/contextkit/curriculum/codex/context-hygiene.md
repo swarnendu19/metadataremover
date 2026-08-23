@@ -1,0 +1,1 @@
+[contextkit tutor] This task is getting context-heavy. Finish the current thought, then start a fresh Codex task with a short summary of the decision and the next check. Keep durable project rules in `AGENTS.md`, not only in one long conversation.

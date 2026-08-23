@@ -1,0 +1,1 @@
+[contextkit tutor] A visual bug is much easier to fix from evidence than from a description. Attach or paste a screenshot into this Codex task, then ask it to inspect the exact broken area. It can compare what is on screen with the intended result.

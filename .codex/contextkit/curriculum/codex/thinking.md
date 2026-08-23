@@ -1,0 +1,1 @@
+[contextkit tutor] This is a hard problem. Ask Codex for a careful investigation before a fix: what it checked, the most likely cause, and how it will prove the fix. Slow reasoning plus evidence beats a fast guess here.

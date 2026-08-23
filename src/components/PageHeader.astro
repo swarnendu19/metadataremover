@@ -1,0 +1,15 @@
+---
+interface Props { home?: boolean; }
+const { home = false } = Astro.props;
+const links = home
+  ? [{ href: '#how-it-works', label: 'How it works' }, { href: '#privacy', label: 'Privacy' }, { href: '#formats', label: 'Formats' }]
+  : [{ href: '/', label: 'Home' }, { href: '/privacy-policy', label: 'Privacy' }, { href: '/contact-us', label: 'Contact' }];
+---
+
+<header class="border-b border-hairline bg-white">
+  <nav class="page-shell flex min-h-16 items-center justify-between gap-5" aria-label="Main navigation">
+    <a href="/" class="flex items-center gap-2.5 font-display text-[15px] font-extrabold tracking-[-0.04em] no-underline text-ink"><span class="brand-mark grid size-7 place-items-center rounded-lg" aria-hidden="true"><svg viewBox="0 0 24 24" class="size-4 fill-none stroke-current" stroke-width="2.63" stroke-linecap="round" stroke-linejoin="round"><path d="M18 12.5V10a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v1.4" /><path d="M14 11V9a2 2 0 1 0-4 0v2" /><path d="M10 10.5V5a2 2 0 1 0-4 0v9" /><path d="m7 15-1.76-1.76a2 2 0 0 0-2.83 2.82l3.6 3.6C7.5 21.14 9.2 22 12 22h2a8 8 0 0 0 8-8V7a2 2 0 1 0-4 0v5" /></svg></span>Metadata Remover</a>
+    <div class="hidden items-center gap-6 text-sm font-semibold sm:flex">{links.map((link) => <a href={link.href} class="nav-link hover:text-ink">{link.label}</a>)}</div>
+    <div class="flex items-center gap-2"><button id="theme-toggle" type="button" class="grid size-10 place-items-center rounded-lg border border-hairline bg-white text-sm font-bold text-ink" aria-label="Switch to light theme" title="Switch theme"></button>{home && <a href="#remover" class="rounded-lg bg-ink px-4 py-2.5 text-sm font-bold text-white no-underline">Clean a file</a>}</div>
+  </nav>
+</header>

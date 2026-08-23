@@ -1,0 +1,1 @@
+[contextkit tutor] Codex hooks are real scripts that run around tasks and tool calls. They live in `.codex/hooks.json` for a project or `~/.codex/hooks.json` for your own defaults. Use them for checks that must happen every time, then review and trust the hook before it runs.

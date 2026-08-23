@@ -1,0 +1,1 @@
+[contextkit tutor] You have returned to a project with a plan. Codex can reload the project rules and contextkit roadmap, but start by asking it to summarize the current state and next step from the files. That gets you moving without relying on a stale chat.

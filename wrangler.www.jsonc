@@ -1,17 +1,14 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "metadata-remover-tool",
+  "name": "metadata-remover-www-redirect",
+  "main": "./src/workers/www-redirect.js",
   "compatibility_date": "2026-09-17",
   "workers_dev": false,
   "preview_urls": false,
   "routes": [
     {
-      "pattern": "metadataremovertool.com",
+      "pattern": "www.metadataremovertool.com",
       "custom_domain": true
     }
-  ],
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "404-page"
-  }
+  ]
 }

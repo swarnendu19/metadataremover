@@ -381,3 +381,5 @@ input.addEventListener('change', () => ingest(input.files));
 ['dragleave', 'drop'].forEach((event) => dropArea.addEventListener(event, (e) => { e.preventDefault(); dropArea.classList.remove('border-ink'); }));
 dropArea.addEventListener('drop', (event) => ingest(event.dataTransfer.files));
 window.addEventListener('paste', (event) => { const images = [...event.clipboardData.files].filter((file) => file.type.startsWith('image/')); if (images.length) ingest(images); });
+
+export { ingest as ingestFiles };

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
+import RemoverLoader from '../../components/RemoverLoader.astro';
 import { alternates, homeContent, languages, siteUrl, translatedLangs, type Lang } from '../../i18n/home';
 
 export function getStaticPaths() {
@@ -51,6 +52,5 @@ const structuredData = {
     <section id="faq" class="page-shell grid gap-10 py-16 sm:py-24 lg:grid-cols-[0.72fr_1.28fr]"><div><h2 class="font-display text-3xl font-extrabold tracking-[-0.05em] sm:text-4xl">{content.faqTitle}</h2><p class="mt-5 max-w-sm leading-7 text-body">{content.faqIntro}</p></div><div class="faq-list space-y-3">{content.faqs.map((faq, index) => <details class="rounded-xl border border-hairline bg-white" open={index === 0}><summary class="flex min-h-14 cursor-pointer items-center gap-4 px-5 py-4 font-display text-base font-extrabold text-ink">{faq.question}</summary><div class="border-t border-hairline px-5 py-4 text-sm leading-7 text-body">{faq.answer}</div></details>)}</div></section>
   </main>
   <SiteFooter />
-  <script src="../../scripts/theme.js"></script>
-  <script src="../../scripts/remover.js"></script>
+  <RemoverLoader />
 </Layout>

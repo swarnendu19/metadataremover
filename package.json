@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "deploy": "npm run build && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy && wrangler deploy --config wrangler.www.jsonc",
     "preview": "astro preview",
     "astro": "astro",
     "test:e2e": "playwright test",

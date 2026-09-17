@@ -112,6 +112,7 @@ main > section:has(#remover.has-results) { display: block; max-width: 75rem; pad
 main > section:has(#remover.has-results) > div:first-child { display: none; }
 main > section:has(#remover.has-results) #remover { width: min(100%, 68rem); margin-inline: auto; }
 main > section:has(#remover.has-results) ~ section { display: none; }
+main > section:not(:first-child), footer { content-visibility: auto; contain-intrinsic-size: auto 720px; }
 #clean-another { border: 1px solid var(--color-ink); background: white; color: var(--color-ink); }
 body[data-theme="dark"] #clean-another { background: #181818; color: #fff; border-color: #555; }
 @media (max-width: 640px) { main > section:has(#remover.has-results) { padding-top: 2rem; padding-bottom: 3rem; } #analysis-results .preset-grid { grid-template-columns: 1fr; } #analysis-results article { padding: 1rem; } }

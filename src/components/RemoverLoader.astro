@@ -1,0 +1,52 @@
+<script>
+  const remover = document.querySelector('#remover');
+
+  if (remover) {
+    let removerReady;
+    let removerLoaded = false;
+    const loadRemover = () => removerReady ??= import('../scripts/remover.js').then((module) => {
+      removerLoaded = true;
+      return module;
+    });
+    const chooseButton = document.querySelector('#choose-files');
+    const fileInput = document.querySelector('#file-input');
+    const dropArea = document.querySelector('.dotted-surface');
+
+    ['pointerenter', 'focusin', 'dragenter'].forEach((eventName) => {
+      remover.addEventListener(eventName, loadRemover, { once: true, passive: true });
+    });
+    chooseButton?.addEventListener('click', async (event) => {
+      if (removerLoaded) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      await loadRemover();
+      fileInput?.click();
+    }, { once: true, capture: true });
+
+    fileInput?.addEventListener('change', async (event) => {
+      if (removerLoaded) return;
+      event.stopImmediatePropagation();
+      const files = fileInput.files;
+      const module = await loadRemover();
+      await module.ingestFiles(files);
+    }, { once: true, capture: true });
+
+    dropArea?.addEventListener('drop', async (event) => {
+      if (removerLoaded) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      const files = event.dataTransfer?.files;
+      const module = await loadRemover();
+      await module.ingestFiles(files);
+    }, { once: true, capture: true });
+
+    window.addEventListener('paste', async (event) => {
+      if (removerLoaded) return;
+      const images = [...(event.clipboardData?.files || [])].filter((file) => file.type.startsWith('image/'));
+      if (!images.length) return;
+      event.stopImmediatePropagation();
+      const module = await loadRemover();
+      await module.ingestFiles(images);
+    }, { capture: true });
+  }
+</script>

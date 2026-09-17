@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://metadataremovertool.com/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-09-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://metadataremovertool.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://metadataremovertool.com/es/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://metadataremovertool.com/ja/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://metadataremovertool.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://metadataremovertool.com/de/" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://metadataremovertool.com/pt/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://metadataremovertool.com/ko/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://metadataremovertool.com/it/" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://metadataremovertool.com/id/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://metadataremovertool.com/" />
   </url>
+  <url><loc>https://metadataremovertool.com/es/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://metadataremovertool.com/ja/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://metadataremovertool.com/fr/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://metadataremovertool.com/de/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://metadataremovertool.com/pt/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://metadataremovertool.com/ko/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://metadataremovertool.com/it/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://metadataremovertool.com/id/</loc><lastmod>2026-09-17</lastmod></url>
   <url>
     <loc>https://metadataremovertool.com/about-us/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-09-17</lastmod>
   </url>
   <url>
     <loc>https://metadataremovertool.com/contact-us/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-09-17</lastmod>
   </url>
   <url>
     <loc>https://metadataremovertool.com/privacy-policy/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-09-17</lastmod>
   </url>
   <url>
     <loc>https://metadataremovertool.com/terms-and-conditions/</loc>
-    <lastmod>2026-08-23</lastmod>
+    <lastmod>2026-09-17</lastmod>
   </url>
 </urlset>

@@ -9,6 +9,9 @@ interface Props {
 	imageAlt?: string;
 	robots?: string;
 	structuredData?: Record<string, unknown>;
+	lang?: string;
+	alternates?: Array<{ lang: string; href: string }>;
+	ogLocale?: string;
 }
 
 const {
@@ -19,20 +22,60 @@ const {
 	imageAlt = 'Metadata Remover for photos, images, and PDFs with private cleanup and no uploads',
 	robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 	structuredData,
+	lang = 'en',
+	alternates = [],
+	ogLocale = 'en_US',
 } = Astro.props;
 
 const canonical = canonicalOverride ?? new URL(Astro.url.pathname, Astro.site ?? 'https://metadataremovertool.com').href;
 ---
 
 <!doctype html>
-<html lang="en" prefix="og: https://ogp.me/ns#">
+<html lang={lang} prefix="og: https://ogp.me/ns#">
 	<head>
 		<meta charset="utf-8" />
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('consent', 'default', {
+				analytics_storage: 'denied',
+				ad_storage: 'denied',
+				ad_user_data: 'denied',
+				ad_personalization: 'denied',
+				region: ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'CH']
+			});
+			gtag('consent', 'default', {
+				analytics_storage: 'granted',
+				ad_storage: 'denied',
+				ad_user_data: 'denied',
+				ad_personalization: 'denied'
+			});
+			gtag('set', 'allow_google_signals', false);
+			gtag('set', 'allow_ad_personalization_signals', false);
+		</script>
+		<script is:inline>
+			gtag('js', new Date());
+			gtag('config', 'G-5WLY9YN27V');
+			(function () {
+				let loaded = false;
+				function loadAnalytics() {
+					if (loaded) return;
+					loaded = true;
+					const script = document.createElement('script');
+					script.async = true;
+					script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5WLY9YN27V';
+					document.head.appendChild(script);
+				}
+				['pointerdown', 'keydown', 'scroll'].forEach((eventName) => window.addEventListener(eventName, loadAnalytics, { once: true, passive: true }));
+				window.addEventListener('load', () => window.setTimeout(loadAnalytics, 8000), { once: true });
+			})();
+		</script>
 		<meta name="viewport" content="width=device-width" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="robots" content={robots} />
 		<link rel="canonical" href={canonical} />
+		{alternates.map((alternate) => <link rel="alternate" hreflang={alternate.lang} href={alternate.href} />)}
 		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="shortcut icon" href="/favicon.ico" />
@@ -47,7 +90,7 @@ const canonical = canonicalOverride ?? new URL(Astro.url.pathname, Astro.site ??
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:site_name" content="Metadata Remover" />
-		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale" content={ogLocale} />
 		<meta property="og:image" content={image} />
 		<meta property="og:image:secure_url" content={image} />
 		<meta property="og:image:type" content="image/png" />
@@ -64,7 +107,9 @@ const canonical = canonicalOverride ?? new URL(Astro.url.pathname, Astro.site ??
 		{structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+		<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" />
+		<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+		<noscript><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
 	</head>
 	<body data-theme="dark">
 		<slot />

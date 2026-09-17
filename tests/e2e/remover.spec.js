@@ -51,6 +51,18 @@ async function makeImage(page, mimeType, name, { exif = false } = {}) {
   return { name, mimeType, buffer: Buffer.from(encoded.split(',')[1], 'base64') };
 }
 
+function addWebpXmp(buffer) {
+  const packet = Buffer.from('<?xpacket begin="﻿"?><x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xmp="http://ns.adobe.com/xap/1.0/" dc:creator="WebP Private Author" xmp:CreateDate="2026-09-17T10:00:00+05:30"/></rdf:RDF></x:xmpmeta><?xpacket end="w"?>');
+  const padding = packet.length % 2;
+  const chunk = Buffer.alloc(8 + packet.length + padding);
+  chunk.write('XMP ', 0, 4, 'ascii');
+  chunk.writeUInt32LE(packet.length, 4);
+  packet.copy(chunk, 8);
+  const output = Buffer.concat([buffer, chunk]);
+  output.writeUInt32LE(output.length - 8, 4);
+  return output;
+}
+
 async function upload(page, files) {
   await page.locator('#file-input').setInputFiles(files);
 }
@@ -70,6 +82,100 @@ test('the selected theme persists after reload', async ({ page }) => {
   await expect(page.locator('body')).toHaveAttribute('data-theme', 'light');
   await page.reload();
   await expect(page.locator('body')).toHaveAttribute('data-theme', 'light');
+});
+
+test('localized homepages expose reciprocal hreflang and translated metadata', async ({ page }) => {
+  await page.goto('/es/');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+  await expect(page).toHaveTitle(/Eliminar metadatos/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://metadataremovertool.com/es/');
+  await expect(page.locator('link[rel="alternate"][hreflang="ja"]')).toHaveAttribute('href', 'https://metadataremovertool.com/ja/');
+  await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute('href', 'https://metadataremovertool.com/');
+});
+
+test('language menu hover text remains readable in dark and light themes', async ({ page }) => {
+  await page.goto('/');
+  const picker = page.locator('.language-picker');
+  const japanese = picker.getByRole('link', { name: '日本語' });
+  const contrast = async () => japanese.evaluate((element) => {
+    const parse = (color) => color.match(/\d+(?:\.\d+)?/g).slice(0, 3).map(Number);
+    const luminance = (rgb) => {
+      const values = rgb.map((value) => { const channel = value / 255; return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4; });
+      return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722;
+    };
+    const style = getComputedStyle(element);
+    const foreground = luminance(parse(style.color));
+    const background = luminance(parse(style.backgroundColor));
+    return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
+  });
+  await picker.locator('summary').click();
+  await japanese.hover();
+  expect(await contrast()).toBeGreaterThanOrEqual(4.5);
+  await page.locator('#theme-toggle').click();
+  await japanese.hover();
+  expect(await contrast()).toBeGreaterThanOrEqual(4.5);
+});
+
+test('WebP XMP fields that simpler parsers miss are shown in the report', async ({ page }) => {
+  await page.goto('/');
+  const image = await makeImage(page, 'image/webp', 'xmp-photo.webp');
+  await upload(page, [{ ...image, buffer: addWebpXmp(image.buffer) }]);
+  await waitForScan(page, 1);
+  await page.locator('#analysis-results details summary').click();
+  await expect(page.locator('#analysis-results')).toContainText('WebP Private Author');
+  await expect(page.locator('#analysis-results')).toContainText(/CreateDate/i);
+});
+
+test('the header action stays usable on narrow mobile screens', async ({ page }) => {
+  for (const width of [280, 320, 360, 390, 430]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/');
+    const action = page.getByRole('link', { name: 'Clean a file' });
+    await expect(action).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const box = await action.boundingBox();
+    expect(box.x + box.width).toBeLessThanOrEqual(width);
+  }
+  await page.getByRole('link', { name: 'Clean a file' }).click();
+  await expect(page).toHaveURL(/#remover$/);
+});
+
+test('local analysis shows a stable loading screen', async ({ page }) => {
+  await page.goto('/');
+  const image = await makeImage(page, 'image/png', 'slow-scan.png');
+  await page.evaluate(() => {
+    const realCreateImageBitmap = window.createImageBitmap;
+    window.createImageBitmap = async (...args) => {
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      return realCreateImageBitmap(...args);
+    };
+  });
+  await upload(page, [image]);
+  const loading = page.getByRole('status');
+  await expect(loading).toContainText('Scanning 1 file locally');
+  await expect(loading).toContainText('Your files are never uploaded');
+  await expect.poll(() => loading.evaluate((element) => element.getBoundingClientRect().height)).toBeGreaterThanOrEqual(350);
+  await waitForScan(page, 1);
+});
+
+test('cleanup choices have an explicit selected state in both themes', async ({ page }) => {
+  await page.goto('/');
+  await upload(page, [await makeImage(page, 'image/png', 'selection.png')]);
+  await waitForScan(page, 1);
+  const choice = page.getByLabel(/Remove EverythingStrip every safe-to-remove metadata field/);
+  await choice.check();
+  const selectedOption = choice.locator('..');
+  await expect(choice).toBeChecked();
+  await expect.poll(() => selectedOption.evaluate((element) => getComputedStyle(element, '::after').content)).toBe('"Selected"');
+  const darkBorder = await selectedOption.evaluate((element) => getComputedStyle(element).borderColor);
+  const darkUnselectedBorder = await page.locator('.preset-option').first().evaluate((element) => getComputedStyle(element).borderColor);
+  expect(darkBorder).not.toBe(darkUnselectedBorder);
+  await page.locator('#theme-toggle').click();
+  await expect(choice).toBeChecked();
+  await expect.poll(() => selectedOption.evaluate((element) => getComputedStyle(element, '::after').content)).toBe('"Selected"');
+  const lightBorder = await selectedOption.evaluate((element) => getComputedStyle(element).borderColor);
+  const lightUnselectedBorder = await page.locator('.preset-option').first().evaluate((element) => getComputedStyle(element).borderColor);
+  expect(lightBorder).not.toBe(lightUnselectedBorder);
 });
 
 test('supported formats scan and clean locally', async ({ page }) => {

@@ -1,9 +1,9 @@
-let exifrModule;
+let exifReaderModule;
 let pdfModule;
 let zipModule;
 let piexifModule;
 
-async function loadExif() { exifrModule ??= await import('exifr'); return exifrModule; }
+async function loadExifReader() { exifReaderModule ??= await import('exifreader'); return exifReaderModule.default || exifReaderModule; }
 async function loadPdf() { pdfModule ??= await import('pdf-lib'); return pdfModule; }
 async function loadZip() { zipModule ??= await import('jszip'); return zipModule.default; }
 async function loadPiexif() { piexifModule ??= await import('piexifjs'); return piexifModule.default || piexifModule; }
@@ -94,7 +94,12 @@ function signalFor(key) {
   return { category: 'Other', score: 0, label: 'Low', meaning: 'This field is not usually personally identifying.' };
 }
 
-function isStructuralField(key) { return /^(imagewidth|imageheight|bitdepth|colortype|compression|filter|interlace|mime|filesize)$/i.test(key.replace(/\s+/g, '')) || isTechnicalMetadataField(key); }
+function isStructuralField(key) {
+  const normalized = key.replace(/\s+/g, '');
+  return /^(file|jfif|pngfile|riff|icc)\./i.test(normalized)
+    || /^(imagewidth|imageheight|bitdepth|colortype|compression|filter|interlace|mime|filesize)$/i.test(normalized)
+    || isTechnicalMetadataField(key);
+}
 
 function riskFor(fields) {
   const sensitive = fields.filter((field) => field.signal.score > 0);
@@ -109,13 +114,50 @@ async function imageDimensions(file) {
   return dimensions;
 }
 
+function readableTagValue(tag) {
+  if (tag === undefined || tag === null) return '';
+  if (typeof tag !== 'object') return String(tag);
+  if (tag.description !== undefined && tag.description !== '') return String(tag.description);
+  if (tag.computed !== undefined && tag.computed !== '') return String(tag.computed);
+  const value = tag.value ?? tag;
+  if (ArrayBuffer.isView(value) || value instanceof ArrayBuffer) {
+    const bytes = value.byteLength ?? value.length ?? 0;
+    return `Embedded binary metadata (${bytes} bytes)`;
+  }
+  if (Array.isArray(value)) return value.map((item) => readableTagValue(item)).filter(Boolean).join(', ');
+  try { return JSON.stringify(value); } catch { return String(value); }
+}
+
+function metadataFields(tags) {
+  const fields = [];
+  const ignoredGroups = new Set(['thumbnail', 'errors']);
+  Object.entries(tags || {}).forEach(([group, entries]) => {
+    if (ignoredGroups.has(group.toLowerCase()) || !entries || typeof entries !== 'object') return;
+    Object.entries(entries).forEach(([key, tag]) => {
+      if (key === '_raw' || key === 'base64' || key === 'image') return;
+      const value = readableTagValue(tag);
+      if (!value) return;
+      const displayKey = ['exif', 'gps', 'composite'].includes(group.toLowerCase()) ? key : `${group}.${key}`;
+      fields.push({ key: displayKey, value, signal: signalFor(displayKey) });
+    });
+  });
+  return fields;
+}
+
 async function analyzeImage(file) {
-  let metadata = {};
+  let fields = [];
   try {
-    const exifr = await loadExif();
-    metadata = await exifr.parse(file, { tiff: true, exif: true, gps: true, iptc: true, xmp: true, icc: true, mergeOutput: true, translateKeys: true }) || {};
-  } catch { metadata = {}; }
-  const fields = Object.entries(metadata).filter(([, value]) => value !== undefined && value !== null && value !== '').map(([key, value]) => ({ key, value: typeof value === 'object' ? JSON.stringify(value) : String(value), signal: signalFor(key) }));
+    const ExifReader = await loadExifReader();
+    const metadata = ExifReader.load(await file.arrayBuffer(), {
+      expanded: true,
+      computed: true,
+      includeUnknown: true,
+      excludeTags: { mpf: true },
+    });
+    fields = metadataFields(metadata);
+  } catch (error) {
+    throw new Error(`Metadata scan failed: ${error?.message || 'the image metadata could not be parsed.'}`);
+  }
   const privacyFields = fields.filter((field) => !isStructuralField(field.key));
   return { file, kind: 'image', dimensions: await imageDimensions(file), fields, privacyFields, structuralFields: fields.filter((field) => isStructuralField(field.key)), ...riskFor(privacyFields) };
 }
@@ -145,7 +187,7 @@ function presetMarkup(analysis, index) {
   ];
   if (analysis.kind === 'pdf') options.push(['custom', 'Custom', 'Choose individual document fields.']);
 
-  const radios = options.map(([value, title, description], optionIndex) => `<label class="preset-option flex cursor-pointer gap-3 rounded-lg border ${optionIndex === 0 ? 'border-2 border-ink' : 'border-hairline'} bg-white p-3 text-xs text-body"><input type="radio" name="preset-${index}" value="${value}" ${optionIndex === 0 ? 'checked' : ''}> <span><strong class="block text-sm text-ink">${title}</strong>${description}</span></label>`).join('');
+  const radios = options.map(([value, title, description], optionIndex) => `<label class="preset-option flex cursor-pointer gap-3 rounded-lg p-3 text-xs text-body"><input type="radio" name="preset-${index}" value="${value}" ${optionIndex === 0 ? 'checked' : ''}> <span><strong class="block text-sm text-ink">${title}</strong>${description}</span></label>`).join('');
   if (analysis.kind !== 'pdf') return `<div class="preset-grid mt-3 grid gap-2 sm:grid-cols-2">${radios}</div>`;
 
   const fields = analysis.fields.map((field) => `<label class="flex items-start gap-3 rounded-lg border border-hairline bg-white p-3 text-xs text-body"><input class="mt-0.5" type="checkbox" name="custom-${index}" value="${escapeHtml(field.key)}" checked> <span><strong class="block text-sm text-ink">${escapeHtml(field.key)}</strong><span class="mt-0.5 block break-all font-mono text-muted">${escapeHtml(field.value)}</span></span></label>`).join('');
@@ -165,8 +207,6 @@ function render() {
     if (summary && !analysis.privacyFields.length) summary.textContent = `Review ${analysis.structuralFields.length} technical file properties`;
     const customFields = card.querySelector('[data-custom-fields]');
     card.querySelectorAll(`input[name="preset-${index}"]`).forEach((radio) => radio.addEventListener('change', () => {
-      card.querySelectorAll('.preset-option').forEach((option) => option.classList.remove('border-2', 'border-ink'));
-      radio.closest('.preset-option').classList.add('border-2', 'border-ink');
       customFields?.classList.toggle('hidden', radio.value !== 'custom');
     }));
   });
@@ -185,7 +225,8 @@ async function ingest(files) {
   state.scanErrors.push(...rejected.map((file) => ({ fileName: file.name, message: 'Unsupported format. Choose JPG, PNG, WebP, or PDF.' })));
   remover.classList.add('has-results');
   results.classList.remove('hidden');
-  results.innerHTML = '<div class="rounded-xl bg-surface-card p-5 text-sm font-semibold text-body">Scanning locally. Your files are not being uploaded.</div>';
+  const fileCount = accepted.length;
+  results.innerHTML = `<div class="scan-loading flex flex-col items-center justify-center rounded-xl border border-hairline bg-white p-6 text-center" role="status" aria-live="polite"><span class="scan-spinner" aria-hidden="true"></span><p class="mt-5 font-display text-lg font-extrabold text-ink">Scanning ${fileCount} file${fileCount === 1 ? '' : 's'} locally</p><p class="mt-2 max-w-sm text-sm leading-6 text-muted">Checking metadata on this device. Large photos and PDFs can take a little longer.</p><div class="scan-progress mt-6" aria-hidden="true"><span></span></div><p class="mt-4 font-mono text-xs text-muted">Your files are never uploaded</p></div>`;
   const outcomes = await Promise.all(accepted.map(async (file) => {
     try {
       const analysis = file.type === 'application/pdf' ? await analyzePdf(file) : await analyzeImage(file);
@@ -306,7 +347,10 @@ function unexpectedSensitiveFields(item) {
   if (item.preset !== 'photographer') return item.verified.sensitive;
   if (item.original.kind === 'pdf') return item.verified.sensitive.filter((field) => field.key !== 'Producer');
   const expectedCameraField = /^(make|model|lensmake|lensmodel)$/i;
-  return item.verified.sensitive.filter((field) => !expectedCameraField.test(field.key.replace(/\s+/g, '')));
+  return item.verified.sensitive.filter((field) => {
+    const leafKey = field.key.split('.').pop().replace(/\s+/g, '');
+    return !expectedCameraField.test(leafKey);
+  });
 }
 
 function renderComplete() {

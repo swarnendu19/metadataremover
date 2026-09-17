@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { alternates } from '../i18n/home';
 
 const canonical = 'https://metadataremovertool.com/';
 const title = 'Free Metadata Remover for Photos, Images & PDFs';
@@ -112,7 +113,7 @@ const structuredData = {
 };
 ---
 
-<Layout {title} {description} {canonical} image={socialImage} imageAlt="Metadata Remover for photos, images, and PDFs with private cleanup and no uploads" {structuredData}>
+<Layout {title} {description} {canonical} {alternates} image={socialImage} imageAlt="Metadata Remover for photos, images, and PDFs with private cleanup and no uploads" {structuredData}>
   <PageHeader home />
   <main>
     <section class="page-shell grid gap-12 py-16 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:py-24">

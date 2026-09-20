@@ -12,6 +12,9 @@ interface Props {
 	lang?: string;
 	alternates?: Array<{ lang: string; href: string }>;
 	ogLocale?: string;
+	ogType?: 'website' | 'article';
+	publishedTime?: string;
+	modifiedTime?: string;
 }
 
 const {
@@ -25,6 +28,9 @@ const {
 	lang = 'en',
 	alternates = [],
 	ogLocale = 'en_US',
+	ogType = 'website',
+	publishedTime,
+	modifiedTime,
 } = Astro.props;
 
 const canonical = canonicalOverride ?? new URL(Astro.url.pathname, Astro.site ?? 'https://metadataremovertool.com').href;
@@ -87,7 +93,7 @@ const canonical = canonicalOverride ?? new URL(Astro.url.pathname, Astro.site ??
 
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:site_name" content="Metadata Remover" />
 		<meta property="og:locale" content={ogLocale} />
@@ -97,6 +103,8 @@ const canonical = canonicalOverride ?? new URL(Astro.url.pathname, Astro.site ??
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:image:alt" content={imageAlt} />
+		{ogType === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+		{ogType === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />

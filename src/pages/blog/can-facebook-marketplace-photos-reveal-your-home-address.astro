@@ -1,0 +1,307 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import RemoverLoader from '../../components/RemoverLoader.astro';
+
+const canonical = 'https://metadataremovertool.com/blog/can-facebook-marketplace-photos-reveal-your-home-address/';
+const title = 'Can Facebook Marketplace Photos Reveal Your Home Address?';
+const description = 'Facebook Marketplace photos can contain GPS coordinates and visible location clues. Check iPhone, Android, or Windows files before you post.';
+const socialImage = 'https://metadataremovertool.com/metadata-remover-social.png';
+const publishedTime = '2026-09-20T09:00:00+05:30';
+const modifiedTime = '2026-09-20T09:00:00+05:30';
+
+const faqs = [
+  {
+    question: 'Can a Facebook Marketplace photo show my exact location?',
+    answer: 'The original photo can contain embedded GPS coordinates precise enough to identify where it was taken. A picture can also reveal a location visually through house numbers, street signs, reflections, paperwork, or distinctive landmarks. Inspect the exact file before uploading instead of relying on a platform to remove those clues.',
+  },
+  {
+    question: 'Does Facebook remove EXIF or GPS metadata from Marketplace photos?',
+    answer: 'Facebook processes and optimizes uploaded photos, but its public help information does not provide a durable promise that every Marketplace upload path will always remove every metadata field before another person can receive or inspect an image. Treat platform processing as changeable and clean the source file first.',
+  },
+  {
+    question: 'How do I know if a photo has GPS coordinates?',
+    answer: 'On iPhone, open the image in Photos and swipe up or tap Info. On Android, open it in Google Photos and open the information panel. On Windows, right-click the file, choose Properties, and inspect Details. For a field-by-field report, scan the file with the local metadata checker on this page.',
+  },
+  {
+    question: 'Does taking a screenshot remove photo metadata?',
+    answer: 'A screenshot is a new image and normally does not copy the original camera EXIF block, but it can still have its own dates or software metadata. More importantly, a screenshot preserves whatever is visible in the frame. Crop status bars, notifications, map labels, usernames, and other identifying details, then inspect the screenshot itself.',
+  },
+  {
+    question: 'Is removing metadata enough to make a Marketplace photo private?',
+    answer: 'No. Metadata removal addresses information stored inside the file. It cannot hide information visible in the pixels, such as an address label, vehicle plate, school logo, family photograph, reflection, window view, or recognizable room. Perform both a metadata check and a visual check.',
+  },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      '@id': `${canonical}#article`,
+      headline: title,
+      alternativeHeadline: 'Can Facebook Marketplace Photos Reveal Your Home Address? Check This Before Posting',
+      description,
+      url: canonical,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+      image: { '@type': 'ImageObject', url: socialImage, width: 1200, height: 630 },
+      datePublished: publishedTime,
+      dateModified: modifiedTime,
+      inLanguage: 'en',
+      author: { '@type': 'Organization', name: 'Metadata Remover', url: 'https://metadataremovertool.com/about-us/' },
+      publisher: { '@type': 'Organization', name: 'Metadata Remover', url: 'https://metadataremovertool.com/', logo: { '@type': 'ImageObject', url: 'https://metadataremovertool.com/web-app-manifest-512x512.png' } },
+      about: ['Facebook Marketplace photo privacy', 'EXIF GPS metadata', 'Photo location privacy'],
+      citation: [
+        'https://support.apple.com/en-ca/guide/iphone/iph0edb9c18f/ios',
+        'https://support.google.com/photos/answer/6153599?co=GENIE.Platform%3DAndroid&hl=en',
+        'https://www.facebook.com/help/iphone-app/187741037945488',
+        'https://support.microsoft.com/en-US/Windows/Apps/Photos/search-photos',
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: faqs.map(({ question, answer }) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://metadataremovertool.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Privacy guides', item: 'https://metadataremovertool.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: 'Facebook Marketplace photo privacy', item: canonical },
+      ],
+    },
+  ],
+};
+---
+
+<Layout {title} {description} {canonical} image={socialImage} imageAlt="A guide to checking Facebook Marketplace photos for location metadata" {structuredData} ogType="article" {publishedTime} {modifiedTime}>
+  <PageHeader />
+  <main>
+    <article>
+      <header class="border-b border-hairline bg-surface-soft py-12 sm:py-20">
+        <div class="page-shell max-w-4xl">
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-sm font-semibold text-muted"><a href="/" class="text-ink underline-offset-4 hover:underline">Home</a><span aria-hidden="true">/</span><a href="/blog/" class="text-ink underline-offset-4 hover:underline">Privacy guides</a></nav>
+          <p class="mt-8 font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">Marketplace photo privacy</p>
+          <h1 class="mt-4 max-w-4xl font-display text-4xl font-extrabold leading-[1.08] tracking-[-0.055em] text-ink sm:text-6xl">Can Facebook Marketplace Photos Reveal Your Home Address? Check This Before Posting</h1>
+          <p class="mt-7 max-w-3xl text-xl leading-9 text-body"><strong class="text-ink">Yes, the original photo can contain GPS coordinates showing where it was taken.</strong> Whether another Marketplace user receives those coordinates depends on how Facebook processes that upload. The safe move is simple: inspect and clean the exact file before posting it.</p>
+          <div class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted"><span>Published <time datetime="2026-09-20">September 20, 2026</time></span><span aria-hidden="true">·</span><span>9 minute read</span><span aria-hidden="true">·</span><span>Evidence checked against platform documentation</span></div>
+        </div>
+      </header>
+
+      <div class="page-shell grid items-start gap-12 py-12 lg:grid-cols-[minmax(0,1fr)_18rem] lg:py-20">
+        <div class="article-prose min-w-0">
+          <section aria-labelledby="short-answer">
+            <div class="rounded-2xl border border-hairline bg-white p-6 sm:p-8">
+              <p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-success">The short answer</p>
+              <h2 id="short-answer" class="mt-3">A Marketplace photo can reveal a place in two different ways.</h2>
+              <div class="mt-5 grid gap-4 sm:grid-cols-2">
+                <div class="rounded-xl bg-surface-soft p-5"><h3>1. Data inside the file</h3><p>EXIF fields can record latitude, longitude, capture time, phone or camera model, editing software, and other details that are not visible in the picture.</p></div>
+                <div class="rounded-xl bg-surface-soft p-5"><h3>2. Details inside the scene</h3><p>House numbers, shipping labels, reflections, documents, windows, street signs, and landmarks remain visible even after every metadata field is removed.</p></div>
+              </div>
+              <p class="mt-5"><strong>Removing metadata solves only the first problem.</strong> A safe listing needs both a file inspection and a visual inspection.</p>
+            </div>
+          </section>
+
+          <section id="what-facebook-does" aria-labelledby="facebook-processing">
+            <h2 id="facebook-processing">Does Facebook remove GPS metadata from Marketplace photos?</h2>
+            <p>Facebook optimizes photos after upload, but that is not a privacy control you own. Upload behavior can change, and it may differ between the app, mobile web, desktop, previews, downloads, or future product updates.</p>
+            <p>Meta’s own photo-sharing help page says that, when camera-roll access is granted, Facebook collects metadata “in or about” media, including information such as its date and time. The same page discusses image optimization, but it does <em>not</em> promise that every Marketplace route permanently removes every EXIF or GPS field before anybody else can access an image.</p>
+            <div class="article-callout"><strong>The practical rule:</strong> do not ask, “Will Facebook strip this later?” Ask, “Is the file safe before Facebook receives it?” That answer is verifiable.</div>
+            <p>This distinction matters. “Facebook may recompress an image” and “my original file contains no sensitive metadata” are not the same claim. Only the second remains true if a platform changes its pipeline.</p>
+          </section>
+
+          <section id="gps-explained" aria-labelledby="gps-fields">
+            <h2 id="gps-fields">What GPSLatitude and GPSLongitude actually mean</h2>
+            <p>Many phone photos use EXIF, a metadata format stored alongside the pixels. Location is commonly split into four related fields:</p>
+            <div class="overflow-x-auto">
+              <table>
+                <thead><tr><th>Field</th><th>What it stores</th><th>Example</th></tr></thead>
+                <tbody>
+                  <tr><td><code>GPSLatitude</code></td><td>Degrees, minutes, and seconds north or south</td><td><code>40° 45′ 12.0″</code></td></tr>
+                  <tr><td><code>GPSLatitudeRef</code></td><td>The hemisphere</td><td><code>N</code> or <code>S</code></td></tr>
+                  <tr><td><code>GPSLongitude</code></td><td>Degrees, minutes, and seconds east or west</td><td><code>73° 59′ 08.0″</code></td></tr>
+                  <tr><td><code>GPSLongitudeRef</code></td><td>The hemisphere</td><td><code>E</code> or <code>W</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>An app can convert those values into decimal coordinates and open them on a map. The field names look technical; the result may be as ordinary—and as sensitive—as the room where you photographed a chair for sale.</p>
+            <p>GPS is the highest-impact clue, but it is not the only useful one. <code>DateTimeOriginal</code> can reveal when you were at a place. Phone model, serial-number fields, author names, embedded thumbnails, and editing-software history can add context. A privacy check should report what is actually present instead of assuming all photos contain the same fields.</p>
+          </section>
+
+          <section id="check-photo" aria-labelledby="how-to-check">
+            <h2 id="how-to-check">How to check a Marketplace photo for location data</h2>
+            <p>Check the final file you intend to upload—not merely an earlier version in your library. Editing, exporting, messaging, and screenshotting can all create a different file with different metadata.</p>
+
+            <h3>On iPhone or iPad</h3>
+            <ol>
+              <li>Open the photo in the <strong>Photos</strong> app.</li>
+              <li>Swipe up on the photo, or tap the <strong>Info</strong> button.</li>
+              <li>Look for a map or location under the image details. Also review the capture date and device information.</li>
+              <li>If a location appears, use the menu beside it to adjust or remove the location, then export/share the intended copy and scan that copy again.</li>
+            </ol>
+            <p>Apple documents that this information view can show the device, camera metadata, date, time, and location. Apple also lets you control Camera location access under <strong>Settings → Privacy &amp; Security → Location Services → Camera</strong>. Turning it off prevents future Camera photos from receiving location through that permission, but it does not retroactively clean files already taken.</p>
+
+            <h3>On Android with Google Photos</h3>
+            <ol>
+              <li>Open the picture in <strong>Google Photos</strong>.</li>
+              <li>Swipe up, or tap the three-dot menu, to open the information panel.</li>
+              <li>Look for a location or map and review the date, device, and file details.</li>
+              <li>Scan the exported file before posting. Google notes that a location saved by the camera cannot be removed or edited inside Google Photos in the same way as a manually added or estimated location.</li>
+            </ol>
+            <p>Android camera menus vary by manufacturer. In the Camera app’s settings, look for a control named <strong>Save location</strong>, <strong>Location tags</strong>, or similar. Disable it if you do not want new photos geotagged. This changes future captures; it is not proof that an older file is clean.</p>
+
+            <h3>On Windows 11 or Windows 10</h3>
+            <ol>
+              <li>In File Explorer, right-click the exact image and choose <strong>Properties</strong>. On Windows 11, you may need <strong>Show more options</strong>.</li>
+              <li>Open the <strong>Details</strong> tab.</li>
+              <li>Scroll to the <strong>GPS</strong>, <strong>Origin</strong>, <strong>Camera</strong>, and <strong>File</strong> sections.</li>
+              <li>If Windows offers <strong>Remove Properties and Personal Information</strong>, work on a copy. Then reopen Properties or use the checker below to verify the output.</li>
+            </ol>
+            <p>Microsoft confirms that photos can include latitude and longitude as embedded data and that Windows Photos can use those values for location search. The fields Windows displays depend on the file format and metadata block, so “nothing shown in one panel” is not as strong as a dedicated scan of the final file.</p>
+          </section>
+
+          <section id="checker" aria-labelledby="checker-heading">
+            <div class="rounded-2xl border border-hairline bg-surface-soft p-5 sm:p-8">
+              <p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-success">Check the exact file</p>
+              <h2 id="checker-heading" class="mt-3">Not sure? Drop your photo here and see what information is inside it.</h2>
+              <p class="mt-4">This <a href="/">metadata checker and remover</a> runs locally in your browser. The photo is not uploaded. Review detected GPS, device, identity, time, camera, and editing fields; choose a cleanup; then download a rescanned copy.</p>
+              <div id="remover" class="mt-7 rounded-2xl border border-hairline bg-white p-3 shadow-[0_18px_50px_rgba(17,17,17,0.08)] sm:p-5">
+                <div id="upload-panel" class="dotted-surface rounded-xl border border-dashed border-[#bfc5cc] px-5 py-10 text-center sm:px-10 sm:py-14">
+                  <div class="upload-mark mx-auto grid size-12 place-items-center rounded-xl shadow-lg"><svg viewBox="0 0 24 24" class="size-6 fill-none stroke-current" stroke-width="1.8" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4 4.5M5 19h14" /></svg></div>
+                  <h3 class="mt-5 font-display text-2xl font-extrabold tracking-[-0.04em]">Check a Marketplace photo</h3>
+                  <p class="mx-auto mt-2 max-w-sm text-sm leading-6 text-muted">Choose the final JPG, PNG, or WebP you plan to post. You can also paste an image.</p>
+                  <input id="file-input" class="sr-only" type="file" aria-label="Choose a Marketplace photo to scan" accept="image/jpeg,image/png,image/webp" multiple />
+                  <button id="choose-files" type="button" class="mt-6 rounded-lg bg-ink px-5 py-3 text-sm font-bold text-white">Choose photo</button>
+                  <p class="mt-5 font-mono text-xs text-muted">JPG · PNG · WebP</p>
+                </div>
+                <div class="mt-4 flex items-start gap-3 rounded-xl bg-surface-card p-4 text-left"><svg viewBox="0 0 24 24" class="mt-0.5 size-5 shrink-0 fill-none stroke-success" stroke-width="2" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg><p class="text-sm leading-6 text-body"><strong class="text-ink">Your photo stays on your device.</strong> Analysis, cleanup, and verification happen in this browser.</p></div>
+                <div id="analysis-results" class="mt-5 hidden" aria-live="polite"></div>
+              </div>
+              <p class="mt-5 text-sm text-muted">Keep your original. Post only the cleaned, verified copy—and still complete the visual check below.</p>
+            </div>
+          </section>
+
+          <section id="visible-clues" aria-labelledby="pixels-can-tell">
+            <h2 id="pixels-can-tell">Metadata can be clean while the picture still reveals your home</h2>
+            <p>Metadata lives around the image. Visible clues live inside it. A metadata remover cannot blur a label, erase a reflection, or hide a landmark. Before posting, zoom in and inspect the entire frame—including glossy surfaces and the background.</p>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="article-check-card"><h3>Direct address clues</h3><ul><li>House or apartment numbers</li><li>Shipping labels and envelopes</li><li>Utility bills or property paperwork</li><li>Street names and building signs</li></ul></div>
+              <div class="article-check-card"><h3>Clues people overlook</h3><ul><li>Reflections in screens, mirrors, or chrome</li><li>Wi-Fi network names on a display</li><li>School, employer, or club logos</li><li>Vehicle registration or parking permits</li></ul></div>
+              <div class="article-check-card"><h3>Location by context</h3><ul><li>A distinctive window or skyline view</li><li>Nearby landmarks or transit stops</li><li>Unique room layouts from earlier listings</li><li>Seasonal decorations paired with timing</li></ul></div>
+              <div class="article-check-card"><h3>Personal and security details</h3><ul><li>Faces or family photographs</li><li>Keys, badges, access cards, or alarm panels</li><li>Calendars showing routines</li><li>Serial numbers on products or devices</li></ul></div>
+            </div>
+            <p>A useful test is to imagine that the buyer knows your name and approximate neighborhood already. Which detail in the image would help them narrow the location further? Remove or re-photograph that detail rather than trusting a crop that still leaves it readable.</p>
+          </section>
+
+          <section id="privacy-checklist" aria-labelledby="checklist-heading">
+            <h2 id="checklist-heading">Facebook Marketplace photo privacy checklist</h2>
+            <div class="checklist-box">
+              <ol>
+                <li><strong>Use a neutral background.</strong> A plain wall, sheet, poster board, or outdoor location away from your home reveals less than a bedroom, garage, or front entrance.</li>
+                <li><strong>Remove paperwork and identifiers.</strong> Move mail, labels, family photographs, badges, keys, plates, and screens out of frame.</li>
+                <li><strong>Check reflections.</strong> Inspect mirrors, televisions, glass tables, appliances, polished metal, and the product itself.</li>
+                <li><strong>Inspect the final file’s metadata.</strong> Look specifically for GPS, capture time, device, identity, embedded thumbnails, and editing fields.</li>
+                <li><strong>Clean a copy—not your only original.</strong> Preserve your private archive and create a separate listing version.</li>
+                <li><strong>Rescan after cleaning.</strong> Verification catches exports that retained data or produced a different file than expected.</li>
+                <li><strong>Open the cleaned image at full size.</strong> Confirm the correct image was exported and visible text is unreadable or removed.</li>
+                <li><strong>Avoid publishing your pickup address.</strong> Share logistics privately and only when necessary; use a safe public meeting place where practical and follow Facebook’s current Marketplace safety guidance.</li>
+              </ol>
+            </div>
+          </section>
+
+          <section id="decision" aria-labelledby="safe-to-post">
+            <h2 id="safe-to-post">A 60-second “safe to post?” decision</h2>
+            <div class="overflow-x-auto">
+              <table>
+                <thead><tr><th>What you find</th><th>What to do</th></tr></thead>
+                <tbody>
+                  <tr><td>GPS coordinates are present</td><td>Clean a copy, rescan it, and post only the verified result.</td></tr>
+                  <tr><td>No GPS, but identity, time, device, or editing fields remain</td><td>Decide whether they are needed. For a Marketplace listing, they usually are not.</td></tr>
+                  <tr><td>No sensitive metadata, but an address clue is visible</td><td>Retake, crop, or redact the image. Metadata cleanup cannot solve this.</td></tr>
+                  <tr><td>No sensitive fields and no visible clues</td><td>Keep the checked copy separate and upload that exact file.</td></tr>
+                  <tr><td>You cannot verify the final file</td><td>Do not post it yet. Create a new neutral-background photo and check again.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="faq" aria-labelledby="faq-heading">
+            <h2 id="faq-heading">Frequently asked questions</h2>
+            <div class="faq-list mt-6 space-y-3">
+              {faqs.map(({ question, answer }, index) => (
+                <details class="rounded-xl border border-hairline bg-white" open={index === 0}>
+                  <summary class="flex min-h-14 cursor-pointer items-center gap-4 px-5 py-4 font-display text-base font-extrabold tracking-[-0.025em] text-ink">{question}</summary>
+                  <div class="border-t border-hairline px-5 py-4 text-sm leading-7 text-body">{answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+
+          <section id="sources" aria-labelledby="sources-heading">
+            <h2 id="sources-heading">Sources and evidence standard</h2>
+            <p>This guide separates documented platform behavior from assumptions. It does not claim that every Facebook upload preserves metadata or that every upload strips it. That behavior can change. The recommended workflow remains testable: inspect the source, clean a copy, rescan the result, and examine the visible scene.</p>
+            <ul class="source-list">
+              <li><a href="https://support.apple.com/en-ca/guide/iphone/iph0edb9c18f/ios" target="_blank" rel="noreferrer">Apple: See photo and video information on iPhone</a></li>
+              <li><a href="https://support.apple.com/en-hk/guide/personal-safety/ips0d7a5df82/web" target="_blank" rel="noreferrer">Apple Personal Safety: Manage location metadata in Photos</a></li>
+              <li><a href="https://support.google.com/photos/answer/6153599?co=GENIE.Platform%3DAndroid&hl=en" target="_blank" rel="noreferrer">Google Photos: Understand, find, edit, or share a photo’s location</a></li>
+              <li><a href="https://www.facebook.com/help/iphone-app/187741037945488" target="_blank" rel="noreferrer">Meta Help Center: Share photos on Facebook</a></li>
+              <li><a href="https://support.microsoft.com/en-US/Windows/Apps/Photos/search-photos" target="_blank" rel="noreferrer">Microsoft Support: Search photos by embedded location</a></li>
+              <li><a href="https://www.facebook.com/help/123884166448529/" target="_blank" rel="noreferrer">Facebook Help Center: Marketplace shopping safety</a></li>
+            </ul>
+            <p class="text-sm text-muted"><strong>Last evidence review:</strong> September 20, 2026. Product interfaces and upload pipelines change; verify the exact file you plan to publish.</p>
+          </section>
+        </div>
+
+        <aside class="hidden lg:block" aria-label="Article navigation">
+          <nav class="sticky top-6 rounded-xl border border-hairline bg-white p-5">
+            <p class="font-mono text-xs font-medium uppercase tracking-[0.14em] text-muted">In this guide</p>
+            <ol class="mt-4 space-y-3 text-sm font-semibold text-body">
+              <li><a href="#what-facebook-does">What Facebook does</a></li>
+              <li><a href="#gps-explained">GPS fields explained</a></li>
+              <li><a href="#check-photo">Check iPhone, Android, Windows</a></li>
+              <li><a href="#checker">Scan your photo</a></li>
+              <li><a href="#visible-clues">Visible location clues</a></li>
+              <li><a href="#privacy-checklist">Privacy checklist</a></li>
+              <li><a href="#faq">Questions</a></li>
+              <li><a href="#sources">Sources</a></li>
+            </ol>
+            <a href="#checker" class="mt-6 block rounded-lg bg-ink px-4 py-3 text-center text-sm font-extrabold text-white no-underline">Check my photo</a>
+          </nav>
+        </aside>
+      </div>
+    </article>
+  </main>
+  <SiteFooter />
+  <RemoverLoader />
+</Layout>
+
+<style>
+  .article-prose section + section { margin-top: 4.5rem; }
+  .article-prose h2 { color: var(--ui-text); font-family: var(--font-display); font-size: clamp(1.65rem, 4vw, 2.25rem); font-weight: 800; letter-spacing: -.045em; line-height: 1.16; }
+  .article-prose h3 { color: var(--ui-text); font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; letter-spacing: -.025em; line-height: 1.35; }
+  .article-prose section > h3 { margin-top: 2rem; }
+  .article-prose p { margin-top: 1.15rem; color: var(--color-body); font-size: 1rem; line-height: 1.85; text-wrap: pretty; }
+  :global(body[data-theme="dark"]) .article-prose p { color: #d1d5db; }
+  .article-prose strong { color: var(--ui-text); }
+  .article-prose a { color: var(--ui-text); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .article-prose ol, .article-prose section > ul { margin: 1.15rem 0 0; padding-left: 1.35rem; color: var(--color-body); }
+  :global(body[data-theme="dark"]) .article-prose ol, :global(body[data-theme="dark"]) .article-prose section > ul { color: #d1d5db; }
+  .article-prose li { padding-left: .35rem; line-height: 1.75; }
+  .article-prose li + li { margin-top: .65rem; }
+  .article-prose code { border: 1px solid var(--ui-border); border-radius: .3rem; background: var(--ui-panel-muted); padding: .08rem .3rem; color: var(--ui-text); font-family: var(--font-mono); font-size: .83em; }
+  .article-prose table { width: 100%; min-width: 40rem; margin-top: 1.35rem; border-collapse: collapse; border: 1px solid var(--ui-border); background: var(--ui-panel); color: var(--ui-text); font-size: .875rem; line-height: 1.55; }
+  .article-prose th, .article-prose td { border-bottom: 1px solid var(--ui-border); padding: .85rem 1rem; text-align: left; vertical-align: top; }
+  .article-prose th { background: var(--ui-panel-muted); font-weight: 800; }
+  .article-callout { margin-top: 1.5rem; border-left: 4px solid #059669; border-radius: 0 .75rem .75rem 0; background: var(--ui-panel-muted); padding: 1rem 1.25rem; color: var(--ui-text); line-height: 1.75; }
+  .article-check-card { border: 1px solid var(--ui-border); border-radius: .85rem; background: var(--ui-panel); padding: 1.25rem; }
+  .article-check-card ul { margin: .85rem 0 0; padding-left: 1.1rem; color: var(--color-body); font-size: .9rem; }
+  :global(body[data-theme="dark"]) .article-check-card ul { color: #d1d5db; }
+  .checklist-box { margin-top: 1.5rem; border: 1px solid var(--ui-border); border-radius: 1rem; background: var(--ui-panel); padding: 1.25rem 1.25rem 1.25rem 1.5rem; }
+  .checklist-box ol { margin: 0; }
+  .source-list a { overflow-wrap: anywhere; }
+  aside a { color: var(--ui-text); text-decoration: none; }
+  aside li { border-bottom: 1px solid var(--ui-border); padding-bottom: .7rem; }
+  @media (max-width: 640px) { .article-prose section + section { margin-top: 3.5rem; } .article-prose table { min-width: 34rem; } }
+</style>

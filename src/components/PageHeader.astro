@@ -16,8 +16,8 @@ const homeLabels: Record<Lang, { how: string; privacy: string; formats: string; 
 };
 const labels = homeLabels[lang];
 const links = home
-  ? [{ href: '#how-it-works', label: labels.how }, { href: '#privacy', label: labels.privacy }, { href: '#formats', label: labels.formats }]
-  : [{ href: '/', label: 'Home' }, { href: '/privacy-policy', label: 'Privacy' }, { href: '/contact-us', label: 'Contact' }];
+  ? [{ href: '#how-it-works', label: labels.how }, { href: '#privacy', label: labels.privacy }, { href: '#formats', label: labels.formats }, { href: '/blog/', label: 'Blog' }]
+  : [{ href: '/', label: 'Home' }, { href: '/blog/', label: 'Blog' }, { href: '/privacy-policy', label: 'Privacy' }, { href: '/contact-us', label: 'Contact' }];
 ---
 
 <header class="border-b border-hairline bg-white">

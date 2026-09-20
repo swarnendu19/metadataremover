@@ -116,6 +116,24 @@ test('language menu hover text remains readable in dark and light themes', async
   expect(await contrast()).toBeGreaterThanOrEqual(4.5);
 });
 
+test('Marketplace privacy guide has complete article SEO and a working local checker', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto('/blog/can-facebook-marketplace-photos-reveal-your-home-address/');
+  await expect(page).toHaveTitle('Can Facebook Marketplace Photos Reveal Your Home Address?');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://metadataremovertool.com/blog/can-facebook-marketplace-photos-reveal-your-home-address/');
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'article');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(/Can Facebook Marketplace Photos Reveal Your Home Address/);
+  const structuredData = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(structuredData).toContain('"@type":"Article"');
+  expect(structuredData).toContain('"@type":"FAQPage"');
+  expect(structuredData).toContain('"@type":"BreadcrumbList"');
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+
+  await upload(page, [await makeImage(page, 'image/jpeg', 'marketplace-photo.jpg', { exif: true })]);
+  await expect(page.locator('#analysis-results').getByRole('heading', { level: 1 })).toContainText('1 file scanned');
+  await expect(page.locator('#analysis-results')).toContainText('GPSLatitude');
+});
+
 test('WebP XMP fields that simpler parsers miss are shown in the report', async ({ page }) => {
   await page.goto('/');
   const image = await makeImage(page, 'image/webp', 'xmp-photo.webp');
